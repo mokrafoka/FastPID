@@ -1,14 +1,14 @@
 #include <Python.h>
 #include "FastPID.h"
 
-FastPID pid; 
+PID::FastPID pid;
 
 static PyObject *
 configure(PyObject *self, PyObject *args) {
   float kp;
   float ki;
-  float kd; 
-  int bits=16; 
+  float kd;
+  int bits=16;
   bool sign=false;
 
   if (!PyArg_ParseTuple(args, "fffib", &kp, &ki, &kd, &bits, &sign))
@@ -19,7 +19,7 @@ configure(PyObject *self, PyObject *args) {
 
 static PyObject *
 step(PyObject *self, PyObject *args) {
-  int sp; 
+  int sp;
   int err;
   if (!PyArg_ParseTuple(args, "ii", &sp, &err))
     return NULL;

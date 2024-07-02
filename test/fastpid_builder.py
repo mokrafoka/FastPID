@@ -14,7 +14,8 @@ setup (name = 'FastPID',
        version = '1.0',
        description = 'Test harness for my PID controller',
        ext_modules = [ext],
+       zip_safe=False,
 )
 
 # test
-import FastPID
+#import FastPID

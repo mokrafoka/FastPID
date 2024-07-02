@@ -1,8 +1,8 @@
 #include <Python.h>
-#include "FastPidT.h"
+#include "SmallPid.h"
 
 using cfgT = PID::Cfg<.5f, 0.5f, 0.f, 1.f>;
-using pidT = PID::FastPID<cfgT>;
+using pidT = PID::SmallPID<cfgT>;
 
 pidT pid;
 

@@ -1,5 +1,5 @@
 
-# FASTPID_EGG = FastPID-1.0.egg-info
+FASTPID_EGG = FastPID-1.0.egg-info
 # ARDUINOPID_EGG = ArduinoPID-1.0.egg-info
 # AUTOPID_EGG = AutoPID-1.0.egg-info
 SMALLPID_EGG = SmallPID-1.0.egg-info
@@ -14,11 +14,11 @@ all: $(SMALLPID_EGG) $(FASTPID_EGG) $(ARDUINOPID_EGG) $(AUTOPID_EGG)
 test: $(SMALL_EGG)
 	$(PYTHON) reference_arduino.py
 
-$(SMALLPID_EGG): smallpid_builder.py smallpid_wrapper.cpp ../src/FastPidT.h
-	$(PYTHON) smallpid_builder.py
+$(SMALLPID_EGG): smallpid_builder.py smallpid_wrapper.cpp ../src/SmallPid.h
+	$(PYTHON) smallpid_builder.py install --user
 
-# $(FASTPID_EGG): fastpid_builder.py fastpid_wrapper.cpp ../src/FastPID.cpp ../src/FastPID.h emulation/Arduino.h
-# 	CFLAGS="-std=c++11 -DARDUINO=100 -Iemulation" $(PYTHON) fastpid_builder.py
+$(FASTPID_EGG): fastpid_builder.py fastpid_wrapper.cpp ../src/FastPID.cpp ../src/FastPID.h emulation/Arduino.h
+	CFLAGS="-std=c++11 -DARDUINO=100 -Iemulation" $(PYTHON) fastpid_builder.py install --user
 
 # $(ARDUINOPID_EGG): arduinopid_builder.py arduinopid_wrapper.cpp arduinopid_lib/PID_v1.cpp arduinopid_lib/PID_v1.h emulation/Arduino.h
 # 	CFLAGS="-std=c++11 -DARDUINO=100 -I arduinopid_lib -Iemulation" $(PYTHON) arduinopid_builder.py
