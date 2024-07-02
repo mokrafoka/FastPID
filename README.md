@@ -1,7 +1,7 @@
 # Forked FastPID
 
 This repository is a fork form the original Mike Matera's arduino
-[FastPID]((https://github.com/mike-matera/FastPID) library.
+[FastPID](https://github.com/mike-matera/FastPID) library.
 
 Changes in this fork:
 
