@@ -1,14 +1,14 @@
 #include "FastPID.h"
 
-#include <Arduino.h>
+using namespace PID;
 
 FastPID::~FastPID() {
 }
 
 void FastPID::clear() {
-  _last_sp = 0; 
+  _last_sp = 0;
   _last_out = 0;
-  _sum = 0; 
+  _sum = 0;
   _last_err = 0;
 }
 
@@ -57,7 +57,7 @@ bool FastPID::configure(float kp, float ki, float kd, float hz, int bits, bool s
   _cfg_err = false;
   setCoefficients(kp, ki, kd, hz);
   setOutputConfig(bits, sign);
-  return ! _cfg_err; 
+  return ! _cfg_err;
 }
 
 uint32_t FastPID::floatToParam(float in) {
@@ -72,7 +72,7 @@ uint32_t FastPID::floatToParam(float in) {
     _cfg_err = true;
     return 0;
   }
-  
+
   return param;
 }
 
@@ -105,8 +105,8 @@ int16_t FastPID::step(int16_t sp, int16_t fb) {
   if (_d) {
     // (int17 - int16) - (int16 - int16) = int19
     int32_t deriv = (err - _last_err) - int32_t(sp - _last_sp);
-    _last_sp = sp; 
-    _last_err = err; 
+    _last_sp = sp;
+    _last_err = err;
 
     // Limit the derivative to 16-bit signed value.
     if (deriv > DERIV_MAX)
@@ -122,12 +122,12 @@ int16_t FastPID::step(int16_t sp, int16_t fb) {
   int64_t out = int64_t(P) + int64_t(I) + int64_t(D);
 
   // Make the output saturate
-  if (out > _outmax) 
+  if (out > _outmax)
     out = _outmax;
-  else if (out < _outmin) 
+  else if (out < _outmin)
     out = _outmin;
 
-  // Remove the integer scaling factor. 
+  // Remove the integer scaling factor.
   int16_t rval = out >> PARAM_SHIFT;
 
   // Fair rounding.

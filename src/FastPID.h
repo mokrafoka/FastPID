@@ -10,16 +10,17 @@
 
 #define PARAM_SHIFT  8
 #define PARAM_BITS   16
-#define PARAM_MAX    (((0x1ULL << PARAM_BITS)-1) >> PARAM_SHIFT) 
-#define PARAM_MULT   (((0x1ULL << PARAM_BITS)) >> (PARAM_BITS - PARAM_SHIFT)) 
+#define PARAM_MAX    (((0x1ULL << PARAM_BITS)-1) >> PARAM_SHIFT)
+#define PARAM_MULT   (((0x1ULL << PARAM_BITS)) >> (PARAM_BITS - PARAM_SHIFT))
 
+namespace PID {
 /*
   A fixed point PID controller with a 32-bit internal calculation pipeline.
 */
 class FastPID {
 
 public:
-  FastPID() 
+  FastPID()
   {
     clear();
   }
@@ -44,20 +45,22 @@ public:
 
 private:
 
-  uint32_t floatToParam(float); 
-  void setCfgErr(); 
+  uint32_t floatToParam(float);
+  void setCfgErr();
 
 private:
 
   // Configuration
   uint32_t _p, _i, _d;
-  int64_t _outmax, _outmin; 
-  bool _cfg_err; 
-  
+  int64_t _outmax, _outmin;
+  bool _cfg_err;
+
   // State
   int16_t _last_sp, _last_out;
   int64_t _sum;
   int32_t _last_err;
 };
+
+} // namespace PID
 
 #endif
